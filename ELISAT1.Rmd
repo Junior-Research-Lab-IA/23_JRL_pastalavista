@@ -1,0 +1,49 @@
+---
+title: "ELISA Test 1"
+output:
+  html_document:
+    df_print: paged
+editor_options:
+  chunk_output_type: inline
+---
+
+---
+output:
+  html_document:
+    number_sections: yes
+    toc: yes
+  pdf_document:
+    number_sections: yes
+    toc: yes
+  word_document:
+    toc: yes
+---
+
+```{r, echo FALSE}
+library(tidyverse)
+```
+
+
+```{r}
+ELISAT1 <- read.csv("ELISAT1.csv", header = TRUE, sep = ";", dec = ".")
+
+print(ELISAT1)
+```
+
+```{r}
+CLEAN <- ELISAT1[18:25,]
+colnames(CLEAN) <- c('blank', 'well', 'control', 'leaf1', 'leaf2', 'leaf3', 'leaf4', 'leaf5', 'leaf6', 'soil1', 'soil2', 'soil3', 'leaf8', 'leaf9')
+
+SOIL = CLEAN %>% 
+  select(soil1, soil2,soil3)
+
+SOIL[1:6,3] <- NA
+
+print(SOIL)
+```
+
+```{r}
+# so if we take out all of the ones above 0.1 (positive results) soil is not one of them
+# we can easily detect in leaves, in some roots, but not in soil
+```
+
